@@ -1,10 +1,14 @@
 <template>
   <div id="app">
+    <div v-if="this.$route.name !== 'signin'" class="topRightBlob1"></div>
+    <div v-if="this.$route.name !== 'signin'" class="topRightBlob2"></div>
     <div id="nav">
-      <router-link to="/"><img src='./assets/logo.png' width='30px'></router-link>
-      <router-link to="/aboutus">About us</router-link>
-      <router-link to="/signup">Sign up</router-link>
-      <router-link to="/signin">Sign in</router-link>
+      <div><router-link to="/"><img src='./assets/logo.png' width='30px'></router-link></div>
+      <div class="navRight">
+        <div><router-link to="/aboutus">About us</router-link></div>
+        <div><router-link to="/signup">Sign up</router-link></div>
+        <div><router-link to="/signin">Sign in</router-link></div>
+      </div>
     </div>
     <!-- <button @click="getServerStuff">
         Get
@@ -64,33 +68,71 @@ body
   font-family 'Poppins', sans-serif
   background-color tint(brandPink,90%)
   color brandGrey
+  margin 0px
 
 #app
-  display grid
-  grid-template-columns repeat(12, 1fr)
-  grid-template-rows repeat(10, 1fr)
+  min-height 100vh
+  display flex
+  flex-direction column
+  align-items center
+  margin 0px 40px 20px 40px
 
 #nav
-  grid-column-start 2
-  grid-column-end 12
-  grid-row-start 1
-  grid-row-end 2
-  display grid
-  grid-template-columns repeat(12, 1fr)
-  justify-items center
+  display flex
   align-items center
-  :nth-child(1)
-    grid-column-start 1
-    grid-column-end 3
+  z-index 10
+  width 90%
+  padding-top 35px
+  padding-bottom 30px
+  font-size 14px
+  flex 0
+
+  div
+    width 50%
+
   a
     color brandGrey
     text-decoration none
     &.router-link-exact-active
       color brandPink
 
+.navRight
+  display flex
+  flex-direction row
+  align-items space between
+
+  > div
+    text-align center
+
+  :first-child
+    text-align left
+
+  :last-child
+    text-align right
+
 .router-view
-  grid-column-start 2
-  grid-column-end 12
-  grid-row-start 2
-  grid-row-end 10
+  flex-grow 1
+
+.topRightBlob1
+  z-index 9
+  background-image url('./assets/blob-shape.svg')
+  width 400px
+  height 400px
+  position absolute
+  top -179px
+  right -127px
+  background-size contain
+  background-repeat no-repeat
+  transform rotate(77deg)
+
+.topRightBlob2
+  background-image url('./assets/blob-shape2.svg')
+  width 400px
+  height 400px
+  position absolute
+  top -172px
+  right -113px
+  background-size contain
+  background-repeat no-repeat
+  transform rotate(77deg)
 </style>

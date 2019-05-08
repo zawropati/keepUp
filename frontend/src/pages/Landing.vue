@@ -1,7 +1,13 @@
 <template>
   <div class="landing">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div>
+      <div class="bottomLeftGreyBlob"></div>
+      <div class="bottomLeftGreenBlob"></div>
+      <div class="bottomLeftPinkBlob"></div>
+    </div>
+    <div class="heroText">
+      <p>We help you to keep your important relationships strong and happy</p>
+    </div>
   </div>
 </template>
 
@@ -16,3 +22,58 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus">
+.landing
+  width 100%
+  display flex
+  flex-direction row
+
+  div
+    width 50%
+  
+  .heroText
+    display flex
+    align-items center
+    font-weight 700
+    font-size 35px
+
+    p
+      padding-bottom 50px
+
+.bottomLeftGreyBlob
+  z-index 3
+  background-image url('.././assets/blob-shape3.svg')
+  width 400px
+  height 400px
+  position absolute
+  bottom 0
+  left 0
+  background-size contain
+  background-repeat no-repeat
+  transform rotate(77deg)
+
+.bottomLeftGreenBlob
+  z-index 1
+  background-image url('.././assets/blob-shape4.svg')
+  width 400px
+  height 400px
+  position absolute
+  bottom -91px
+  left -76px
+  background-size contain
+  background-repeat no-repeat
+  transform rotate(77deg)
+
+.bottomLeftPinkBlob
+  z-index 2
+  background-image url('.././assets/blob-shape5.svg')
+  width 600px
+  height 600px
+  position absolute
+  bottom -91px
+  left -76px
+  background-size contain
+  background-repeat no-repeat
+
+</style>
