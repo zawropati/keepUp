@@ -31,31 +31,31 @@ export default {
     }
   },
   methods: {
-    getServerStuff () {
-      fetch('http://localhost:8080/friends/backend/api/test.php')
-      .then(res => res.json())
-      .then(json => {
-        this.$root.serverStuff = json
-        console.log(json)
-      }).catch(error => {
-        console.log(error)
-      })
-    },
-    setServerStuff(){
-      let formData = new FormData()
-      formData.append('name', this.name)
-      formData.append('lover', this.lover)
-      fetch('http://localhost:8080/friends/backend/api/set.php', {
-        method: 'POST',
-        body: formData
-      })
-      .then(res => res.json())
-      .then(json => {
-        console.log(json)
-      }).catch(error => {
-        console.log(error)
-      })
-    }
+    // getServerStuff () {
+    //   fetch('http://localhost:8080/friends/backend/api/test.php')
+    //   .then(res => res.json())
+    //   .then(json => {
+    //     this.$root.serverStuff = json
+    //     console.log(json)
+    //   }).catch(error => {
+    //     console.log(error)
+    //   })
+    // },
+    // setServerStuff(){
+    //   let formData = new FormData()
+    //   formData.append('name', this.name)
+    //   formData.append('lover', this.lover)
+    //   fetch('http://localhost:8080/friends/backend/api/set.php', {
+    //     method: 'POST',
+    //     body: formData
+    //   })
+    //   .then(res => res.json())
+    //   .then(json => {
+    //     console.log(json)
+    //   }).catch(error => {
+    //     console.log(error)
+    //   })
+    // }
   }
 }
 </script>

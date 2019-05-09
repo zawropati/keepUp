@@ -5,7 +5,7 @@ require_once __DIR__.'/connect.php';
 session_start();
 
 if( !isset ($_SESSION['userID'])){
-  sendResponse(0, __LINE__, 'You must login to use this api.');
+  sendResponse(0, __LINE__, 'You must login to use this api.', '');
 }
 $userID = $_SESSION['userID'];
 
@@ -15,9 +15,9 @@ $stmt->bindValue(':userID', $userID);
 $stmt->execute();
 $friends = $stmt->fetchAll();
 
-sendResponse(1, __LINE__, json_encode($friends));
+sendResponse(1, __LINE__,'These are the users friends', json_encode($friends));
 //**************************************************
-function sendResponse($bStatus, $iLineNumber, $message){
-  echo '{"status": '.$bStatus.', "code": '.$iLineNumber.', "message":"'.$message.'"}';
+function sendResponse($bStatus, $iLineNumber, $message, $data){
+  echo '{"status": '.$bStatus.', "code": '.$iLineNumber.', "message":"'.$message.'", "data":'.$data.'}';
   exit;
 }

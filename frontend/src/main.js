@@ -7,7 +7,7 @@ Vue.config.productionTip = false
 
 new Vue({
   data: {
-    serverStuff: null
+    friends: []
   },
   router,
   render: h => h(App)
