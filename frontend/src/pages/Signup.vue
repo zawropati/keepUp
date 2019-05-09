@@ -7,7 +7,7 @@
     <button @click="signUpUser">Sign up</button>
   </div>
   <div v-else>
-    
+    <p>One step closer to nurture your relationships.</p>
   </div>
 </template>
 

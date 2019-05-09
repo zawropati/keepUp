@@ -6,6 +6,7 @@
       <div class="bottomLeftPinkBlob"></div>
     </div>
     <div class="heroText">
+      <h1>Friendtimacy</h1>
       <p>We help you to keep your important relationships strong and happy</p>
     </div>
   </div>
@@ -34,12 +35,14 @@ export default {
 
   .heroText
     display flex
-    align-items center
+    flex-direction column
+    align-items grid-start
     font-weight 700
     font-size 35px
+    padding-top 100px
 
-    p
-      padding-bottom 50px
+    h1
+      margin 0
 
 .bottomLeftGreyBlob
   z-index 3
