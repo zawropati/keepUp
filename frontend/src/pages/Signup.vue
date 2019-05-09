@@ -1,9 +1,47 @@
 <template>
-  <div class="signup">
-    <h1>This is a sign up page
-      <span v-if="$root.serverStuff">
-        {{ $root.serverStuff.test }}
-      </span>
-    </h1>
+  <div class="signup" v-if="!submitted">
+    <input type="text" id="firstName" v-model="firstName" placeholder="First name">
+    <input type="text" id="lastName" v-model="lastName" placeholder="Last name">
+    <input type="text" id="email" v-model="email" placeholder="Email">
+    <input type="password" id="userPassword" v-model="userPassword" placeholder="Password">
+    <button @click="signUpUser">Sign up</button>
+  </div>
+  <div v-else>
+    
   </div>
 </template>
+
+<script>
+export default {
+  data(){
+    return {
+      email: '',
+      userPassword: '',
+      firstName: '',
+      lastName:'',
+      submitted: false
+    }
+  },
+  methods: {
+    signUpUser(){
+      let formData = new FormData()
+      formData.append('firstName', this.firstName)
+      formData.append('lastName', this.lastName)
+      formData.append('email', this.email)
+      formData.append('userPassword', this.userPassword)
+      fetch('http://localhost:8080/friends/backend/api/api-signup.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => res.json())
+      .then(json => {
+        this.submitted=true
+        console.log(json)
+      }).catch(error => {
+
+        console.log(error)
+      })
+    }
+  },
+}
+</script>
