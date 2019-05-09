@@ -31,7 +31,7 @@ export default {
 
   div
     width 50%
-  
+
   .heroText
     display flex
     align-items center
