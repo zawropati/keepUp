@@ -6,7 +6,7 @@
       <div class="bottomLeftPinkBlob"></div>
     </div>
     <div class="heroText">
-      <h1>Friendtimacy</h1>
+      <h1>FriendTimacy</h1>
       <p>We help you to keep your important relationships strong and happy</p>
     </div>
   </div>
