@@ -73,7 +73,7 @@ try{
 }
 
 //**************************************************
-function sendResponse($bStatus, $iLineNumber, $message){
-  echo '{"status": '.$bStatus.', "code": '.$iLineNumber.', "message":"'.$message.'"}';
+function sendResponse($bStatus, $iLineNumber, $message, $data='{}'){
+  echo '{"status": '.$bStatus.', "code": '.$iLineNumber.', "message":"'.$message.'", "data":'.$data.'}';
   exit;
 }

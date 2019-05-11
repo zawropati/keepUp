@@ -86,7 +86,7 @@ $category = $_POST['category'];
   sendResponse(1, __LINE__, 'Successfully added the friend to the database');
 
 //**************************************************
-function sendResponse($bStatus, $iLineNumber, $message){
-  echo '{"status": '.$bStatus.', "code": '.$iLineNumber.', "message":"'.$message.'"}';
+function sendResponse($bStatus, $iLineNumber, $message, $data='{}'){
+  echo '{"status": '.$bStatus.', "code": '.$iLineNumber.', "message":"'.$message.'", "data":'.$data.'}';
   exit;
 }

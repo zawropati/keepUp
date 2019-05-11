@@ -23,8 +23,8 @@ $stmt = $db->prepare('INSERT INTO friends_stay_in_touch VALUES(:friendID, :stayI
 
   sendResponse(1, __LINE__, 'Successfully added the frequency of contact to the database');
 
-  //**************************************************
-function sendResponse($bStatus, $iLineNumber, $message){
-  echo '{"status": '.$bStatus.', "code": '.$iLineNumber.', "message":"'.$message.'"}';
+//**************************************************
+function sendResponse($bStatus, $iLineNumber, $message, $data='{}'){
+  echo '{"status": '.$bStatus.', "code": '.$iLineNumber.', "message":"'.$message.'", "data":'.$data.'}';
   exit;
 }

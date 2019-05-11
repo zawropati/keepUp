@@ -20,9 +20,9 @@ $stmt->bindValue(':ID', $friendID);
 $stmt->execute();
 $oneFriend = $stmt->fetchAll();
 
-sendResponse(1, __LINE__, json_encode($oneFriend));
+sendResponse(1, __LINE__, 'Data of the selected friend',json_encode($oneFriend));
 //**************************************************
-function sendResponse($bStatus, $iLineNumber, $message){
-  echo '{"status": '.$bStatus.', "code": '.$iLineNumber.', "message":"'.$message.'"}';
+function sendResponse($bStatus, $iLineNumber, $message, $data='{}'){
+  echo '{"status": '.$bStatus.', "code": '.$iLineNumber.', "message":"'.$message.'", "data":'.$data.'}';
   exit;
 }

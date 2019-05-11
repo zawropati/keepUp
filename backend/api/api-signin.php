@@ -45,9 +45,9 @@ $userID = $user[0]['id'];
 session_start();
 $_SESSION['userID'] = $userID;
 
-sendResponse(1, __LINE__, 'Successfully signed in');
+sendResponse(1, __LINE__, 'Successfully signed in', $userID);
 //**************************************************
-function sendResponse($bStatus, $iLineNumber, $message){
-  echo '{"status": '.$bStatus.', "code": '.$iLineNumber.', "message":"'.$message.'"}';
+function sendResponse($bStatus, $iLineNumber, $message, $data='{}'){
+  echo '{"status": '.$bStatus.', "code": '.$iLineNumber.', "message":"'.$message.'", "data":'.$data.'}';
   exit;
 }
