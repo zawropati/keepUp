@@ -3,21 +3,15 @@
     <div v-if="this.$route.name !== 'signin'" class="topRightBlob1"></div>
     <div v-if="this.$route.name !== 'signin'" class="topRightBlob2"></div>
     <div id="nav">
+      {{$root.user}}
       <div><router-link to="/"><img src='./assets/logo.png' width='30px'></router-link></div>
       <div class="navRight">
-        <div><router-link to="/aboutus">About us</router-link></div>
-        <div><router-link to="/signup">Sign up</router-link></div>
-        <div><router-link to="/signin">Sign in</router-link></div>
+        <div v-if="!$root.user"><router-link to="/aboutus">About us</router-link></div>
+        <div v-if="!$root.user"><router-link to="/signup">Sign up</router-link></div>
+        <div v-if="!$root.user"><router-link to="/signin">Sign in</router-link></div>
+        <div v-if="$root.user" @click="signout"><router-link to="/">Sign out</router-link></div>
       </div>
     </div>
-    <!-- <button @click="getServerStuff">
-        Get
-      </button>
-      <button @click="setServerStuff">
-        Post
-      </button>
-      <input type="text" v-model="name">
-      <input type="text" v-model="lover"> -->
     <router-view class="router-view"/>
   </div>
 </template>
@@ -30,7 +24,36 @@ export default {
       lover: ''
     }
   },
+  created(){
+    this.getCurrentUser()
+  },
   methods: {
+    getCurrentUser(){
+      fetch('/friends/backend/api/api-get-current-user.php', {
+        method: 'GET'
+      })
+      .then(res => res.json())
+      .then(json => {
+        if(json.status = 1){
+          this.$root.user = json.data
+        }
+        console.log(json)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    signout(){
+      fetch('/friends/backend/api/api-signout.php', {
+        method: 'GET'
+      })
+      .then(res => res.json())
+      .then(json => {
+        this.$root.user = ''
+        console.log(json)
+      }).catch(error => {
+        console.log(error)
+      })
+    }
     // getServerStuff () {
     //   fetch('http://localhost:8080/friends/backend/api/test.php')
     //   .then(res => res.json())
@@ -124,6 +147,7 @@ body
   background-size contain
   background-repeat no-repeat
   transform rotate(77deg)
+  pointer-events none
 
 .topRightBlob2
   background-image url('./assets/blob-shape2.svg')
@@ -135,4 +159,6 @@ body
   background-size contain
   background-repeat no-repeat
   transform rotate(77deg)
+  pointer-events none
+
 </style>
