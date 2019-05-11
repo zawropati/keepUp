@@ -15,7 +15,7 @@ export default {
     }
   },
   methods: {
-      signInUser(){
+    signInUser(){
       let formData = new FormData()
       formData.append('email', this.email)
       formData.append('userPassword', this.userPassword)
@@ -26,7 +26,9 @@ export default {
       })
       .then(res => res.json())
       .then(json => {
-        this.getAllFriends()
+        this.$root.user = json.data
+        this.$router.push('/dashboard')
+        // this.getAllFriends()
         console.log(json)
       }).catch(error => {
 

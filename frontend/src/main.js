@@ -7,6 +7,7 @@ Vue.config.productionTip = false
 
 new Vue({
   data: {
+    user: '',
     friends: []
   },
   router,
