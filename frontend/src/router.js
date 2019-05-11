@@ -4,6 +4,7 @@ import Landing from './pages/Landing.vue'
 import Signin from './pages/Signin.vue'
 import Signup from './pages/Signup.vue'
 import Dashboard from './pages/Dashboard.vue'
+import Friend from './pages/Friend.vue'
 
 Vue.use(Router)
 
@@ -30,6 +31,11 @@ export default new Router({
       path: '/dashboard',
       name: 'dashboard',
       component: Dashboard
+    },
+    {
+      path: '/friend/:id',
+      name: 'friend',
+      component: Friend
     }
   ]
 })

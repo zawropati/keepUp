@@ -28,29 +28,12 @@ export default {
       .then(json => {
         this.$root.user = json.data
         this.$router.push('/dashboard')
-        // this.getAllFriends()
         console.log(json)
-      }).catch(error => {
-
-        console.log(error)
-      })
-    },
-    getAllFriends(){
-      fetch('/friends/backend/api/api-get-all-friends.php', {
-        method: 'GET',
-        credentials: 'include'
-      })
-      .then(res => res.json())
-      .then(json => {
-        console.log(json)
-        //check if its 1
-        this.$root.friends = json.data
       }).catch(error => {
 
         console.log(error)
       })
     }
-
   }
 }
 </script>
