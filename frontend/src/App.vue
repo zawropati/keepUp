@@ -4,7 +4,7 @@
     <div v-if="this.$route.name !== 'signin'" class="topRightBlob2"></div>
     <div id="nav">
       {{$root.user}}
-      <div><router-link to="/"><img src='./assets/logo.png' width='30px'></router-link></div>
+      <div><router-link to="/"><p class="logo">FriendTimacy</p></router-link></div>
       <div class="navRight">
         <div v-if="!$root.user"><router-link to="/aboutus">About us</router-link></div>
         <div v-if="!$root.user"><router-link to="/signup">Sign up</router-link></div>
@@ -118,6 +118,12 @@ body
     text-decoration none
     &.router-link-exact-active
       color brandPink
+
+.logo
+  color brandPink
+  margin 0px
+  font-weight bold
+  letter-spacing 2px
 
 .navRight
   display flex
