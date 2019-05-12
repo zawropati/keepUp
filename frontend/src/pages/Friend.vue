@@ -1,11 +1,34 @@
 <template>
   <div v-if="$root.user" class="friend">
-    FRIEND
+    <div class="friendAbout">
+      <img :src="friend.image_url">
+      <p>{{friend.first_name}} {{friend.last_name}}</p>
+      <div>
+        <p>{{friend.phone_number}}</p>
+        <p>{{friend.email}}</p>
+        <p>{{friend.address}}</p>
+      </div>
+      <p>{{friend.workplace}}</p>
+      <div>
+        <p></p>
+        <p>{{friend.birthdate}}</p>
+      </div>
+    </div>
+    <div class="friendContent">
+      <p>{{friend.category_name}}</p>
+      <p>{{friend.frequency}}</p>
+      <p>{{friend.note}}</p>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  data () {
+    return {
+      friend: {}
+    }
+  },
   created(){
     this.getOneFriend()
   },
@@ -19,7 +42,7 @@ export default {
       .then(json => {
         console.log(json)
         //check if its 1
-        // this.$root.friends = json.data
+        this.friend = json.data[0]
       }).catch(error => {
 
         console.log(error)
@@ -31,5 +54,16 @@ export default {
 </script>
 
 <style lang="stylus">
+
+.friend
+  display flex
+  flex-direction column
+  justify-content center
+
+  .friendAbout
+    width 30%
+
+  .friendContent
+    width 70%
 
 </style>
