@@ -1,5 +1,12 @@
 <template>
   <div v-if="$root.user" class="dashboard">
+    <div class="panel">
+      <button @click="sortingCategory = 1" :class="{activeButton: sortingCategory==1}">Friends</button>
+      <button @click="sortingCategory = 2" :class="{activeButton: sortingCategory==2}">Family</button>
+      <button @click="sortingCategory = 3" :class="{activeButton: sortingCategory==3}">Work</button>
+      <button @click="sortingCategory = 4" :class="{activeButton: sortingCategory==4}">All</button>
+      <button  @click="openModal" title="Add friend"><img class="plus" src='../assets/plus-solid.svg'></button>
+    </div>
     <div v-if="modalIsOpen==true && !isSubmitted" class="greyLayer">
     </div>
     <div v-if="modalIsOpen==true && !isSubmitted" class="modalContainer">
@@ -20,8 +27,7 @@
       </div>
     </div>
     <div class="dashboardInner">
-      <button @click="openModal">Add friend</button>
-      <div @click="goToFriend(friend)" v-for="friend in $root.friends" class="friendContainer">
+      <div @click="goToFriend(friend)" v-for="friend in $root.friends" v-if="friend.category_fk==sortingCategory || sortingCategory==4" class="friendContainer">
         <img :src="friend.image_url">
         <div class="name">{{friend.first_name}} {{friend.last_name}}</div>
         <div>blahjgjyfkgvhj</div>
@@ -43,7 +49,8 @@ export default {
       phoneNumber:'',
       workplace:'',
       category: 1,
-      isSubmitted: false
+      isSubmitted: false,
+      sortingCategory: 4
     }
   },
   created(){
@@ -103,11 +110,28 @@ export default {
 <style lang="stylus">
 @import '.././assets/global.stylus.styl'
 
+.panel
+  margin-top 80px
+  display flex
+  flex-direction row
+  justify-content space-between
+
+  button
+    border none
+    background transparent
+    cursor pointer
+    outline none
+
+  .activeButton
+    text-decoration underline
+
+    .plus
+      width 20px
+
 .dashboardInner
   z-index 0
   display flex
   flex-direction column
-  padding-top 80px
   width 700px
 
 .friendContainer
