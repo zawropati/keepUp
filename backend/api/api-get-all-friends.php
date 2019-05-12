@@ -10,7 +10,7 @@ if( !isset ($_SESSION['userID'])){
 $userID = $_SESSION['userID'];
 
 
-$stmt = $db->prepare('SELECT id, first_name, last_name, image_url FROM friends WHERE user_fk=:userID');
+$stmt = $db->prepare('SELECT id, first_name, last_name, image_url, category_fk FROM friends WHERE user_fk=:userID');
 $stmt->bindValue(':userID', $userID);
 $stmt->execute();
 $friends = $stmt->fetchAll();
