@@ -68,7 +68,7 @@ $workplace = $_POST['workplace'] ?? '';
 //CATEGORY
 $category = $_POST['category'];
 
-
+$db->beginTransaction();
   $stmt = $db->prepare('INSERT INTO friends VALUES(null, :userID, :category, :firstName, :lastName, :birthday, :imageURL, :phoneNumber, :workplace, :email, :friendAddress, "" )');
   $stmt->bindValue(':userID', $userID);
   $stmt->bindValue(':category', $category);
@@ -81,7 +81,22 @@ $category = $_POST['category'];
   $stmt->bindValue(':email', $email);
   $stmt->bindValue(':friendAddress', $address);
 
-  $stmt->execute();
+  if(  !$stmt->execute() ){
+    sendResponse(1, __LINE__, 'Couldnt add user to the database');
+    $db->rollBack();
+    exit;
+  }
+
+  $friendId = $db->lastInsertId();
+  $stmt = $db->prepare('INSERT INTO friends_stay_in_touch VALUES(:friendID, 5, null)');
+  $stmt->bindValue(':friendID', $friendId);
+  if(  !$stmt->execute() ){
+    sendResponse(1, __LINE__, 'Couldnt add user to the database 2');
+    $db->rollBack();
+    exit;
+  }
+
+  $db->commit();
 
   sendResponse(1, __LINE__, 'Successfully added the friend to the database');
 
