@@ -45,3 +45,31 @@ export default {
   },
 }
 </script>
+
+<style lang="stylus">
+@import '.././assets/global.stylus.styl'
+
+.signup
+  display flex
+  flex-direction column
+  padding-top 80px
+
+  input
+    padding 10px
+    width 300px
+    margin-bottom 20px
+    border-radius 25px
+    border 3px white solid
+    background transparent
+    outline none
+
+  button
+    padding 10px
+    margin-bottom 20px
+    border-radius 25px
+    background-color brandGreen
+    border none
+    color white
+    font-weight bold
+
+</style>
