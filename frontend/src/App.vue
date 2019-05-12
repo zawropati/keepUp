@@ -20,8 +20,6 @@
 export default {
   data(){
     return {
-      name: '',
-      lover: ''
     }
   },
   created(){
