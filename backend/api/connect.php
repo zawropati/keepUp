@@ -1,16 +1,16 @@
 <?php
 
 try{
-    $sUserName = 'root';
-    $sPassword = '';
-    $sConnection = "mysql:host=localhost; dbname=friendsapp; charset=utf8mb4";
+  $sUserName = 'root';
+  $sPassword = '';
+  $sConnection = "mysql:host=localhost; dbname=friendsapp; charset=utf8mb4";
 
-    $aOptions = array(
-        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
-    );
-    $db = new PDO( $sConnection, $sUserName, $sPassword, $aOptions );
+  $aOptions = array(
+    // PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, //commented out because of transaction
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+  );
+  $db = new PDO( $sConnection, $sUserName, $sPassword, $aOptions );
 }catch( PDOException $e){
-    echo $e;
-    exit();
+echo '{"status":0,"message":"cannot connect to database"}';
+exit();
 }

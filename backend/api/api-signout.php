@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__.'/connect.php';
 
 session_start();
@@ -8,13 +9,9 @@ if( !isset ($_SESSION['userID'])){
 }
 $userID = $_SESSION['userID'];
 
+session_destroy();
 
-$stmt = $db->prepare('SELECT id, first_name, last_name, image_url, category_fk FROM friends WHERE user_fk=:userID');
-$stmt->bindValue(':userID', $userID);
-$stmt->execute();
-$friends = $stmt->fetchAll();
-
-sendResponse(1, __LINE__,'These are the users friends', json_encode($friends));
+sendResponse(1, __LINE__, 'Successfully signed out');
 //**************************************************
 function sendResponse($bStatus, $iLineNumber, $message, $data='{}'){
   echo '{"status": '.$bStatus.', "code": '.$iLineNumber.', "message":"'.$message.'", "data":'.$data.'}';

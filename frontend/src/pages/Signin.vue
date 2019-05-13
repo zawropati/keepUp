@@ -1,13 +1,8 @@
 <template>
-  <div class="signup" v-if="!submitted">
-    <input type="text" id="firstName" v-model="firstName" placeholder="First name">
-    <input type="text" id="lastName" v-model="lastName" placeholder="Last name">
+  <div class="signin">
     <input type="text" id="email" v-model="email" placeholder="Email">
     <input type="password" id="userPassword" v-model="userPassword" placeholder="Password">
-    <button @click="signUpUser">Sign up <img class="arrow" src='../assets/arrow-right-solid.svg'> </button>
-  </div>
-  <div v-else>
-    <p>One step closer to nurture your relationships. You can find the Log in button in the right upper corner.</p>
+    <button @click="signInUser">Sign in <img class="arrow" src='../assets/arrow-right-solid.svg'></button>
   </div>
 </template>
 
@@ -16,43 +11,38 @@ export default {
   data(){
     return {
       email: '',
-      userPassword: '',
-      firstName: '',
-      lastName:'',
-      submitted: false
+      userPassword: ''
     }
   },
   methods: {
-    signUpUser(){
+    signInUser(){
       let formData = new FormData()
-      formData.append('firstName', this.firstName)
-      formData.append('lastName', this.lastName)
       formData.append('email', this.email)
       formData.append('userPassword', this.userPassword)
-      fetch('/friends/backend/api/api-signup.php', {
+      fetch('/friends/backend/api/api-signin.php', {
         method: 'POST',
-        body: formData
+        body: formData,
+        credentials: 'include'
       })
       .then(res => res.json())
       .then(json => {
-        this.submitted=true
+        this.$root.user = json.data
+        this.$router.push('/dashboard')
         console.log(json)
       }).catch(error => {
 
         console.log(error)
       })
     }
-  },
+  }
 }
 </script>
 
 <style lang="stylus">
-@import '.././assets/global.stylus.styl'
-
-.signup
+.signin
   display flex
   flex-direction column
-  padding-top 100px
+  padding-top 150px
 
   input
     padding 15px

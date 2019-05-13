@@ -3,33 +3,27 @@ require_once __DIR__.'/connect.php';
 
 session_start();
 
-if( !isset ($_SESSION['userId'])){
-    sendResponse(0, __LINE__, 'You must login to use this api.');
+if( !isset ($_SESSION['userID'])){
+  sendResponse(0, __LINE__, 'You must login to use this api.');
 }
+$userID = $_SESSION['userID'];
 
-$userId = $_SESSION['userId'];
+//FRIENDID
+$friendID = $_POST['friendID'];
 
-$friendId = $_POST['friendId'];
+//STAY-IN-TOUCH
+$stayInTouchFrequency = $_POST['stayInTouchFrequency'];
 
+$stmt = $db->prepare('INSERT INTO friends_stay_in_touch VALUES(:friendID, :stayInTouchFrequency, null)');
+  $stmt->bindValue(':friendID', $friendID);
+  $stmt->bindValue(':stayInTouchFrequency', $stayInTouchFrequency);
 
+  $stmt->execute();
 
-$stayInTouchFrequency = $_POST['stayFrequecy'] ?? '';
-$stayInTouchDate = time();
+  sendResponse(1, __LINE__, 'Successfully added the frequency of contact to the database');
 
-
-$stmt = $db->prepare('INSERT INTO friends_stay_in_touch VALUES (:friendId, :stayFrequency, null)');
-$stmt->bindValue(':friendId', $friendId);
-$stmt->bindValue(':stayFrequency', $stayInTouchFrequency);
-
-$stmt->execute();
-sendResponse( 1, __LINE__, "success!" );
-
-
-function sendResponse( $bStatus, $iLineNumber, $sMessage ){
-    echo '{"status":'.$bStatus.', "code":'.$iLineNumber.', "message":"'.$sMessage.'"}';
-    exit;
-  }
-  
-  
-  
-  
+//**************************************************
+function sendResponse($bStatus, $iLineNumber, $message, $data='{}'){
+  echo '{"status": '.$bStatus.', "code": '.$iLineNumber.', "message":"'.$message.'", "data":'.$data.'}';
+  exit;
+}

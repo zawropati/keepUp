@@ -6,6 +6,10 @@ import './registerServiceWorker'
 Vue.config.productionTip = false
 
 new Vue({
+  data: {
+    user: '',
+    friends: []
+  },
   router,
   render: h => h(App)
 }).$mount('#app')
