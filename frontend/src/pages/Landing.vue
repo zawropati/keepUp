@@ -1,12 +1,10 @@
 <template>
   <div class="landing">
-    <div>
-      <div class="bottomLeftGreyBlob"></div>
-      <div class="bottomLeftGreenBlob"></div>
-      <div class="bottomLeftPinkBlob"></div>
+    <div v-if="animationEnded" class="title" >
+      <p>When you can't keep up.<br> Let us help you. </p>
     </div>
-    <div class="heroText">
-      <p>We help you to keep your important relationships strong and happy</p>
+    <div class="heroText" >
+      <h1>KeepUp</h1>
     </div>
   </div>
 </template>
@@ -19,29 +17,111 @@ export default {
   name: 'landing',
   components: {
     HelloWorld
+  },
+  data(){
+    return{
+      animationEnded: false
+    }
+  },
+  mounted(){
+    this.showText()
+  },
+  methods:{
+    showText(){
+      setTimeout(() => {
+        this.animationEnded =true        
+      }, 3000);
+    }
+
   }
 }
 </script>
 
 <style lang="stylus">
+@import url('https://fonts.googleapis.com/css?family=Poppins:700');
+
 .landing
   width 100%
   display flex
   flex-direction row
+  text-align center
 
-  div
-    width 50%
+.title
+  display flex
+  flex-direction column
+  color transparent
+  font-size 45px
+  padding 3em 10em
+  margin-left 2em
+  position absolute
+  text-shadow: #000 0px 0px 1px;
+  -webkit-font-smoothing: antialiased;
+  animation: fadeOnce 2s;
 
-  .heroText
-    display flex
-    flex-direction column
-    align-items grid-start
-    font-size 35px
-    padding 160px 30px 30px 0px
-    width 50%
+  
+.heroText
+  display flex
+  flex-direction column
+  font-size 45px
+  padding-top 3em
+  margin 0 auto
+  -webkit-animation: fadein 3s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 3s; /* Firefox < 16 */
+  -ms-animation: fadein 3s; /* Internet Explorer */
+  -o-animation: fadein 3s; /* Opera < 12.1 */
+  animation: fadein 3s;
+  opacity: 0;
 
-    p
-      padding-left 0
+
+  @keyframes fadein {
+    0%   { opacity:0; }
+    50%  { opacity:1; }
+    100% { opacity:0; }
+  }
+
+  /* Firefox < 16 */
+  @-moz-keyframes fadein {
+    0%   { opacity:0; }
+    50%  { opacity:1; }
+    100% { opacity:0; }
+  }
+
+  /* Safari, Chrome and Opera > 12.1 */
+  @-webkit-keyframes fadein {
+    0%   { opacity:0; }
+    50%  { opacity:1; }
+    100% { opacity:0; }
+  }
+
+  /* Internet Explorer */
+  @-ms-keyframes fadein {
+    0%   { opacity:0; }
+    50%  { opacity:1; }
+    100% { opacity:0; }
+  }
+
+  @keyframes fadeOnce {
+    0%   { opacity:0; }
+    100% { opacity:1; }
+  }
+
+  /* Firefox < 16 */
+  @-moz-keyframes fadeOnce {
+    0%   { opacity:0; }
+    100% { opacity:1; }
+  }
+
+  /* Safari, Chrome and Opera > 12.1 */
+  @-webkit-keyframes fadeOnce {
+    0%   { opacity:0; }
+    100% { opacity:1; }
+  }
+
+  /* Internet Explorer */
+  @-ms-keyframes fadeOnce {
+    0%   { opacity:0; }
+    100% { opacity:1; }
+  }
 
 .bottomLeftGreyBlob
   z-index 3

@@ -8,22 +8,18 @@ if( !isset ($_SESSION['userID'])){
 }
 
 
-//$json = file_get_contents('php://input');
-
 $userID = $_SESSION['userID'];
 /// $data = $_POST['data'];
 
 
 $body = file_get_contents("php://input");
 $jData = json_decode($body);
-//sendResponse(1, __LINE__, 'Successfully updated the friends data in the database', $body);
 
 //VALIDATE FIRST NAME
-$friendID = $jData->id;
 $firstName = $jData->firstName;
-// if(empty($firstName)){
-//   sendResponse(0, __LINE__, 'Name filed is empty');
-// }
+if(empty($firstName)){
+  sendResponse(0, __LINE__, 'Name filed is empty');
+}
 
 // if( strlen($firstName) < 2){
 //   sendResponse(0, __LINE__, 'Name has to be min 2 characters');
@@ -35,9 +31,9 @@ $firstName = $jData->firstName;
 
 //VALIDATE LAST NAME
 $lastName = $jData->lastName;
-// if(!empty($lastName)){
-//   sendResponse(0, __LINE__, 'Last name filed is empty');
-// }
+if(empty($lastName)){
+  sendResponse(0, __LINE__, 'Last name filed is empty');
+}
 
 // if( strlen($lastName) < 2){
 //   sendResponse(0, __LINE__, 'Last name has to be min 2 characters');
@@ -49,55 +45,40 @@ $lastName = $jData->lastName;
 
 //VALIDATE EMAIL
 $email = $jData->email;
-// if(!empty($email)){
-//   sendResponse(0, __LINE__, 'Email field is empty');
-// }
+if(empty($email)){
+  sendResponse(0, __LINE__, 'Email field is empty');
+}
 
-// if( !filter_var($email, FILTER_VALIDATE_EMAIL)){
-//   sendResponse(0, __LINE__, 'Email address is not a valid address');
-// }
+if( !filter_var($email, FILTER_VALIDATE_EMAIL)){
+  sendResponse(0, __LINE__, 'Email address is not a valid address');
+}
 
 //BIRTHDAY
-$birthday = $jData->birthdate;
-// if(empty($birthday)){
-//   sendResponse(0, __LINE__, 'Email field is empty');
-// }
-
-//ADDRESS
-$address = $jData->address;
-
-//PHONE NUMBER/S
-$phoneNumber = $jData->phoneNumber;
-
-//IMAGE_URL ?
-
-//WORKPLACE
-$workplace = $jData->workplace;
-
-//CATEGORY
-$category = $jData->category;
-
+$password = $jData->password;
+if(empty($password)){
+    sendResponse(0, __LINE__, 'Password field is empty');
+}
+$hashedPassword = password_hash($password, 1);
 
   // $stmt = $db->prepare('SELECT * FROM friends WHERE id = :friendID');
   // $stmt->bindValue(':friendID', $friendID);
-
-  $stmt = $db->prepare('UPDATE friends SET first_name=:firstName, 
-  last_name=:lastName, category_fk=:category, birthdate=:birthday, phone=:phoneNumber, 
-  workplace=:workplace, email=:email, address=:friendAddress WHERE id = :friendID');
+try
+{  $stmt = $db->prepare('UPDATE users SET first_name=:firstName, 
+  last_name=:lastName, email=:email, password=:userPassword WHERE id = :userID');
   //  $stmt->bindValue(':userID', $userID);
-  $stmt->bindValue(':friendID', $friendID);
-  $stmt->bindValue(':category', $category);
+  $stmt->bindValue(':userID', $userID);
   $stmt->bindValue(':firstName', $firstName);
   $stmt->bindValue(':lastName', $lastName);
-  $stmt->bindValue(':birthday', $birthday);
-  $stmt->bindValue(':phoneNumber', $phoneNumber);
-  $stmt->bindValue(':workplace', $workplace);
   $stmt->bindValue(':email', $email);
-  $stmt->bindValue(':friendAddress', $address);
+  $stmt->bindValue(':userPassword', $hashedPassword);
 
   $stmt->execute();
+  sendResponse(1, __LINE__, 'Successfully updated the user data in the database', $body);
 
-
+}
+catch(PDOException $ex){
+    echo $ex;
+  }
 //**************************************************
 function sendResponse($bStatus, $iLineNumber, $message, $data='{}'){
   echo '{"status": '.$bStatus.', "code": '.$iLineNumber.', "message":"'.$message.'", "data":'.$data.'}';

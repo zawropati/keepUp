@@ -6,14 +6,23 @@ session_start();
 if( !isset ($_SESSION['userID'])){
   sendResponse(0, __LINE__, 'You must login to use this api.');
 }
+$body = file_get_contents("php://input");
+$jData = json_decode($body); 
 
-$date = $_POST['date'];
-$name = $_POST['name'];
-$friendID = $_POST['friendID'];
+//echo json_encode($jData->note);
 
+$friendID = $jData->friendID;
+
+
+$date = $jData->date;
+$name =$jData->name;
+if($name == null){
+  sendResponse(0, __LINE__, 'Title cannot be null');
+
+}
 try{
 
-  $stmt = $db->prepare('INSERT INTO friends_memories VALUES(:friendID, :memoryDate, :memoryName)');
+  $stmt = $db->prepare('INSERT INTO friends_memories VALUES(null, :friendID, :memoryDate, :memoryName)');
 
   $stmt->bindValue(':memoryDate', $date);
   $stmt->bindValue(':memoryName', $name);

@@ -65,10 +65,10 @@ $imageURL = $_POST['imageURL'] ?? '';
 $workplace = $_POST['workplace'] ?? '';
 
 //CATEGORY
-$category = $_POST['category'];
+$category = $_POST['category'] ?? '';
 
 $db->beginTransaction();
-  $stmt = $db->prepare('INSERT INTO friends VALUES(null, :userID, :category, :firstName, :lastName, :birthday, :imageURL, :phoneNumber, :workplace, :email, :friendAddress, "" )');
+  $stmt = $db->prepare('INSERT INTO friends VALUES(null, :userID, :firstName, :lastName, :category, :birthday, :phoneNumber, :imageURL, :workplace, :email, :friendAddress, "" )');
   $stmt->bindValue(':userID', $userID);
   $stmt->bindValue(':category', $category);
   $stmt->bindValue(':firstName', $firstName);

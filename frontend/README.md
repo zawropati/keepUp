@@ -1,4 +1,4 @@
-# friendsmanager
+# KeepUp
 
 ## Project setup
 ```

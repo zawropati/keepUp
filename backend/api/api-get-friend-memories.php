@@ -8,17 +8,14 @@ if( !isset ($_SESSION['userID'])){
 }
 $userID = $_SESSION['userID'];
 
+$friendID = $_GET['friendID'];
 
-$stmt = $db->prepare('SELECT *
-FROM friends
-JOIN friends_stay_in_touch ON friends.id = friends_stay_in_touch.friend_fk
-JOIN friends_stay_in_touch_frequencies ON friends_stay_in_touch.frequency_fk = friends_stay_in_touch_frequencies.id
-WHERE user_fk=:userID');
-$stmt->bindValue(':userID', $userID);
+$stmt = $db->prepare('SELECT * FROM friends_memories WHERE friend_fk=:friendID');
+$stmt->bindValue(':friendID', $friendID);
 $stmt->execute();
-$friends = $stmt->fetchAll();
+$memories = $stmt->fetchAll();
 
-sendResponse(1, __LINE__,'These are the users friends', json_encode($friends));
+sendResponse(1, __LINE__,'These are the friedn memories', json_encode($memories));
 //**************************************************
 function sendResponse($bStatus, $iLineNumber, $message, $data='{}'){
   echo '{"status": '.$bStatus.', "code": '.$iLineNumber.', "message":"'.$message.'", "data":'.$data.'}';
