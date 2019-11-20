@@ -1,5 +1,5 @@
 {
-  "name": "friendsmanager",
+  "name": "KeepUp",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,9 +7,12 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "bootstrap": "^4.3.1",
+    "bootstrap-vue": "^2.0.0-rc.20",
     "core-js": "^2.6.5",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.10",
+    "vue-resource": "^1.5.1",
     "vue-router": "^3.0.3"
   },
   "devDependencies": {
